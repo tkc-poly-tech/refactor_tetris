@@ -16,8 +16,8 @@ suseconds_t timer = 400000;
 int decrease = 1000;
 
 typedef struct {
-    char **array;
-    int width, row, col;
+	char **array;
+	int width, row, col;
 } Struct;
 Struct current;
 
@@ -31,35 +31,38 @@ const Struct StructsArray[7]= {
 	{(char *[]){(char []){0,0,0,0}, (char []){1,1,1,1}, (char []){0,0,0,0}, (char []){0,0,0,0}}, 4}
 };
 
-Struct FunctionCopyShape(Struct shape){
+Struct FunctionCopyShape(Struct shape)
+{
 	Struct new_shape = shape;
 	char **copyshape = shape.array;
 	new_shape.array = (char**)malloc(new_shape.width*sizeof(char*));
-    int i, j;
-    for(i = 0; i < new_shape.width; i++){
+	int i, j;
+	for(i = 0; i < new_shape.width; i++){
 		new_shape.array[i] = (char*)malloc(new_shape.width*sizeof(char));
 		for(j=0; j < new_shape.width; j++) {
 			new_shape.array[i][j] = copyshape[i][j];
 		}
-    }
-    return new_shape;
+	}
+	return new_shape;
 }
 
-void FunctionDeleteShape(Struct shape){
-    int i;
-    for(i = 0; i < shape.width; i++){
+void FunctionDeleteShape(Struct shape)
+{
+	int i;
+	for(i = 0; i < shape.width; i++){
 		free(shape.array[i]);
-    }
-    free(shape.array);
+	}
+	free(shape.array);
 }
 
-int FunctionCheckPosition(Struct shape){
+int FunctionCheckPosition(Struct shape) //check position of copied shape
+{
 	char **array = shape.array;
 	int i, j;
 	for(i = 0; i < shape.width;i++) {
 		for(j = 0; j < shape.width ;j++){
-			if((shape.col+j < 0 || shape.col+j >= COLS || shape.row+i >= ROWS)){
-				if(array[i][j])
+			if((shape.col+j < 0 || shape.col+j >= COLS || shape.row+i >= ROWS)){ //out of borders
+				if(array[i][j]) //but is it just a phantom?
 					return FALSE;
 			}
 			else if(Table[shape.row+i][shape.col+j] && array[i][j])
@@ -69,19 +72,20 @@ int FunctionCheckPosition(Struct shape){
 	return TRUE;
 }
 
-void FunctionGetNewShape()
+void FunctionGetNewShape() //return s rondom shape
 {
 	Struct new_shape = FunctionCopyShape(StructsArray[rand()%7]);
-    new_shape.col = rand()%(COLS-new_shape.width+1);
-    new_shape.row = 0;
-    FunctionDeleteShape(current);
+	new_shape.col = rand()%(COLS-new_shape.width+1);
+	new_shape.row = 0;
+	FunctionDeleteShape(current);
 	current = new_shape;
 	if(!FunctionCheckPosition(current)){
 		GameOn = FALSE;
 	}
 }
 
-void FunctionRotateShape(Struct shape){
+void FunctionRotateShape(Struct shape) //rotetes clockwise
+{
 	Struct temp = FunctionCopyShape(shape);
 	int i, j, k, width;
 	width = shape.width;
@@ -104,7 +108,7 @@ void FunctionWriteToTable()
 	}
 }
 
-void FunctionCheckLines()
+void FunctionCheckLines() //check lines
 {
 	int n, m, sum, count=0;
 	for(n=0;n<ROWS;n++){
@@ -158,17 +162,17 @@ void FunctionManipulateCurrent(int action)
 				current.row++;
 			else {
 				FunctionWriteToTable();
-				FunctionCheckLines();
+				FunctionCheckLines(); //check full lines, after putting it down
 				FunctionGetNewShape();
 			}
 			break;
 		case 'd':
-			temp.col++;
+			temp.col++; //move right
 			if(FunctionCheckPosition(temp))
 				current.col++;
 			break;
 		case 'a':
-			temp.col--;
+			temp.col--; //move left
 			if(FunctionCheckPosition(temp))
 				current.col--;
 			break;
@@ -184,7 +188,7 @@ void FunctionManipulateCurrent(int action)
 
 struct timeval before_now, now;
 int hasToUpdate(){
-	return ((suseconds_t)(now.tv_sec*1000000 + now.tv_usec) -((suseconds_t)before_now.tv_sec*1000000 + before_now.tv_usec)) > timer;
+	return ((suseconds_t)(now.tv_sec*1000000 + now.tv_usec) - ((suseconds_t)before_now.tv_sec*1000000 + before_now.tv_usec)) > timer;
 }
 
 void set_timeout(int time) {
@@ -193,14 +197,14 @@ void set_timeout(int time) {
 }
 
 int main() {
-    srand(time(0));
-    final = 0;
-    int c;
-    initscr();
+	srand(time(0));
+	final = 0;
+	int c;
+	initscr();
 	gettimeofday(&before_now, NULL);
 	set_timeout(1);
 	FunctionGetNewShape();
-    FunctionPrintTable();
+	FunctionPrintTable();
 	while(GameOn){
 		if ((c = getch()) != ERR) {
 			FunctionManipulateCurrent(c);
@@ -211,9 +215,9 @@ int main() {
 			FunctionManipulateCurrent('s');
 		}
 	}
-	// endwin();
+	FunctionDeleteShape(current);
+	endwin();
 	printf("\nGame over!\n");
 	printf("\nScore: %d\n", final);
-	FunctionDeleteShape(current);
-    return 0;
+	return 0;
 }
