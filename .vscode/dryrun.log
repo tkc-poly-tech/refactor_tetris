@@ -1,0 +1,6 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory `/Users/kishutakashi/42/tetris_base'
+make: `tetris' is up to date.
+ 
+make: Leaving directory `/Users/kishutakashi/42/tetris_base'
+ 
