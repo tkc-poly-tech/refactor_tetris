@@ -1,6 +1,5 @@
-make --dry-run --keep-going --print-directory
+make --dry-run --always-make --keep-going --print-directory
 make: Entering directory `/Users/kishutakashi/42/tetris_base'
-make: `tetris' is up to date.
- 
+gcc tetris.c -lncurses -o tetris
 make: Leaving directory `/Users/kishutakashi/42/tetris_base'
  
