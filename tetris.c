@@ -10,7 +10,7 @@
 #define FALSE 0
 
 char Table[ROWS][COLS] = {0};
-int final = 0;
+int score = 0;
 char GameOn = TRUE;
 suseconds_t timer = 400000;
 int decrease = 1000;
@@ -84,7 +84,7 @@ void FunctionGetNewShape() //return s rondom shape
 	}
 }
 
-void FunctionRotateShape(Struct shape) //rotetes clockwise
+void FunctionRotateShape(Struct shape) //rotates clockwise
 {
 	Struct temp = FunctionCopyShape(shape);
 	int i, j, k, width;
@@ -108,7 +108,7 @@ void FunctionWriteToTable()
 	}
 }
 
-void FunctionCheckLines() //check lines
+void FunctionCheckLines() 
 {
 	int n, m, sum, count=0;
 	for(n=0;n<ROWS;n++){
@@ -127,7 +127,7 @@ void FunctionCheckLines() //check lines
 			timer-=decrease--;
 		}
 	}
-	final += 100*count;
+	score += 100*count;
 }
 
 void FunctionPrintTable(){
@@ -149,7 +149,7 @@ void FunctionPrintTable(){
 		}
 		printw("\n");
 	}
-	printw("\nScore: %d\n", final);
+	printw("\nScore: %d\n", score);
 }
 
 void FunctionManipulateCurrent(int action)
@@ -198,7 +198,7 @@ void set_timeout(int time) {
 
 int main() {
 	srand(time(0));
-	final = 0;
+	score = 0;
 	int c;
 	initscr();
 	gettimeofday(&before_now, NULL);
@@ -218,6 +218,6 @@ int main() {
 	FunctionDeleteShape(current);
 	endwin();
 	printf("\nGame over!\n");
-	printf("\nScore: %d\n", final);
+	printf("\nScore: %d\n", score);
 	return 0;
 }
