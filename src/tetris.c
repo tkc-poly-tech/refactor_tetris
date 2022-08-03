@@ -1,13 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <sys/time.h>
-#include <ncurses.h>
-
-#define ROWS 20
-#define COLS 15
-#define TRUE 1
-#define FALSE 0
+#include "tetris.h" 
 
 char Table[ROWS][COLS] = {0};
 int score = 0;
@@ -15,10 +6,6 @@ char GameOn = TRUE;
 suseconds_t timer = 400000;
 int decrease = 1000;
 
-typedef struct {
-	char **array;
-	int width, row, col;
-} Struct;
 Struct current;
 
 const Struct StructsArray[7]= {

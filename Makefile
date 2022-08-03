@@ -1,6 +1,6 @@
 CC = gcc
 DIR_INCLUDE = ./include
-CFLAGS = -Wall -Wextra -Werror -lncurses #-I $(DIR_INCLUDE)
+CFLAGS = -Wall -Wextra -Werror -lncurses -I $(DIR_INCLUDE)
 
 NAME = tetris
 
