@@ -1,20 +1,20 @@
 CC = gcc
 DIR_INCLUDE = ./include
-CFLAGS = -Wall -Wextra -Werror -lncurses -I $(DIR_INCLUDE)
-
+CFLAGS = -Wall -Wextra -Werror -I $(DIR_INCLUDE)
 NAME = tetris
 
 DIR_SRC = src
-SRCS =	$(DIR_SRC)/tetris.c \
+SRCS =	$(DIR_SRC)/tetris.c
+OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
-$(NAME): $(SRCS)
-	$(CC) $(CFLAGS) $^ -o $@
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -lncurses $(OBJS) -o $@
 
 re:	fclean all
 fclean: clean
-#	$(RM) $(NAME)
-clean:
 	$(RM) $(NAME)
+clean:
+	$(RM) $(OBJS)
 
-.PHONY:	$(NAME) all re fclean clean
+.PHONY:	all re fclean clean
