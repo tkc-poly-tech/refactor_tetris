@@ -15,6 +15,6 @@
 typedef struct {
 	char **array;
 	int width, row, col;
-} Struct;
+} Piece;
 
 #endif

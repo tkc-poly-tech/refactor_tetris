@@ -13,8 +13,8 @@ $(NAME): $(SRCS)
 
 re:	fclean all
 fclean: clean
-	$(RM) $(NAME)
+#	$(RM) $(NAME)
 clean:
-#	$(RM) $(OBJS)
+	$(RM) $(NAME)
 
 .PHONY:	$(NAME) all re fclean clean

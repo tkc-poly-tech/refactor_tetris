@@ -6,9 +6,9 @@ char GameOn = TRUE;
 suseconds_t timer = 400000;
 int decrease = 1000;
 
-Struct current;
+Piece current;
 
-const Struct StructsArray[7]= {
+const Piece pieceTemplates[7]= {
 	{(char *[]){(char []){0,1,1},(char []){1,1,0}, (char []){0,0,0}}, 3, 0, 0},
 	{(char *[]){(char []){1,1,0},(char []){0,1,1}, (char []){0,0,0}}, 3, 0, 0},
 	{(char *[]){(char []){0,1,0},(char []){1,1,1}, (char []){0,0,0}}, 3, 0, 0},
@@ -18,73 +18,73 @@ const Struct StructsArray[7]= {
 	{(char *[]){(char []){0,0,0,0}, (char []){1,1,1,1}, (char []){0,0,0,0}, (char []){0,0,0,0}}, 4, 0, 0}
 };
 
-Struct FunctionCopyShape(Struct shape)
+Piece copyPiece(Piece piece)
 {
-	Struct new_shape = shape;
-	char **copyshape = shape.array;
-	new_shape.array = (char**)malloc(new_shape.width*sizeof(char*));
+	Piece copied = piece;
+	char **array = piece.array;
+	copied.array = (char**)malloc(copied.width*sizeof(char*));
 	int i, j;
-	for(i = 0; i < new_shape.width; i++){
-		new_shape.array[i] = (char*)malloc(new_shape.width*sizeof(char));
-		for(j=0; j < new_shape.width; j++) {
-			new_shape.array[i][j] = copyshape[i][j];
+	for(i = 0; i < copied.width; i++){
+		copied.array[i] = (char*)malloc(copied.width*sizeof(char));
+		for(j=0; j < copied.width; j++) {
+			copied.array[i][j] = array[i][j];
 		}
 	}
-	return new_shape;
+	return copied;
 }
 
-void FunctionDeleteShape(Struct shape)
+void deletePiece(Piece piece)
 {
 	int i;
-	for(i = 0; i < shape.width; i++){
-		free(shape.array[i]);
+	for(i = 0; i < piece.width; i++){
+		free(piece.array[i]);
 	}
-	free(shape.array);
+	free(piece.array);
 }
 
-int FunctionCheckPosition(Struct shape) //check position of copied shape
+int checkPosition(Piece piece) //check position of copied piece
 {
-	char **array = shape.array;
+	char **array = piece.array;
 	int i, j;
-	for(i = 0; i < shape.width;i++) {
-		for(j = 0; j < shape.width ;j++){
-			if((shape.col+j < 0 || shape.col+j >= COLS || shape.row+i >= ROWS)){ //out of borders
+	for(i = 0; i < piece.width;i++) {
+		for(j = 0; j < piece.width ;j++){
+			if((piece.col+j < 0 || piece.col+j >= COLS || piece.row+i >= ROWS)){ //out of borders
 				if(array[i][j]) //but is it just a phantom?
 					return FALSE;
 			}
-			else if(Table[shape.row+i][shape.col+j] && array[i][j])
+			else if(Table[piece.row+i][piece.col+j] && array[i][j])
 				return FALSE;
 		}
 	}
 	return TRUE;
 }
 
-void FunctionGetNewShape() //return s rondom shape
+void getNewPiece() //return s rondom piece
 {
-	Struct new_shape = FunctionCopyShape(StructsArray[rand()%7]);
-	new_shape.col = rand()%(COLS-new_shape.width+1);
-	new_shape.row = 0;
-	FunctionDeleteShape(current);
-	current = new_shape;
-	if(!FunctionCheckPosition(current)){
+	Piece new = copyPiece(pieceTemplates[rand()%7]);
+	new.col = rand()%(COLS-new.width+1);
+	new.row = 0;
+	deletePiece(current);
+	current = new;
+	if(!checkPosition(current)){
 		GameOn = FALSE;
 	}
 }
 
-void FunctionRotateShape(Struct shape) //rotates clockwise
+void rotatePiece(Piece piece) //rotates clockwise
 {
-	Struct temp = FunctionCopyShape(shape);
+	Piece tmp = copyPiece(piece);
 	int i, j, k, width;
-	width = shape.width;
+	width = piece.width;
 	for(i = 0; i < width ; i++){
 		for(j = 0, k = width-1; j < width ; j++, k--){
-				shape.array[i][j] = temp.array[k][i];
+				piece.array[i][j] = tmp.array[k][i];
 		}
 	}
-	FunctionDeleteShape(temp);
+	deletePiece(tmp);
 }
 
-void FunctionWriteToTable()
+void writeToTable()
 {
 	int i, j;
 	for(i = 0; i < current.width ;i++){
@@ -95,7 +95,7 @@ void FunctionWriteToTable()
 	}
 }
 
-void FunctionCheckLines() 
+void checkLines() 
 {
 	int n, m, sum, count=0;
 	for(n=0;n<ROWS;n++){
@@ -117,13 +117,13 @@ void FunctionCheckLines()
 	score += 100*count;
 }
 
-void FunctionPrintTable(){
-	char Buffer[ROWS][COLS] = {0};
+void printTable(){
+	char buffer[ROWS][COLS] = {0};
 	int i, j;
 	for(i = 0; i < current.width ;i++){
 		for(j = 0; j < current.width ; j++){
 			if(current.array[i][j])
-				Buffer[current.row+i][current.col+j] = current.array[i][j];
+				buffer[current.row+i][current.col+j] = current.array[i][j];
 		}
 	}
 	clear();
@@ -132,45 +132,45 @@ void FunctionPrintTable(){
 	printw("42 Tetris\n");
 	for(i = 0; i < ROWS ;i++){
 		for(j = 0; j < COLS ; j++){
-			printw("%c ", (Table[i][j] + Buffer[i][j])? '#': '.');
+			printw("%c ", (Table[i][j] + buffer[i][j])? '#': '.');
 		}
 		printw("\n");
 	}
 	printw("\nScore: %d\n", score);
 }
 
-void FunctionManipulateCurrent(int action)
+void manipulateCurrent(int action)
 {
-	Struct temp = FunctionCopyShape(current);
+	Piece tmp = copyPiece(current);
 	switch(action){
 		case 's':
-			temp.row++;  //move down
-			if(FunctionCheckPosition(temp))
+			tmp.row++;  //move down
+			if(checkPosition(tmp))
 				current.row++;
 			else {
-				FunctionWriteToTable();
-				FunctionCheckLines(); //check full lines, after putting it down
-				FunctionGetNewShape();
+				writeToTable();
+				checkLines(); //check full lines, after putting it down
+				getNewPiece();
 			}
 			break;
 		case 'd':
-			temp.col++; //move right
-			if(FunctionCheckPosition(temp))
+			tmp.col++; //move right
+			if(checkPosition(tmp))
 				current.col++;
 			break;
 		case 'a':
-			temp.col--; //move left
-			if(FunctionCheckPosition(temp))
+			tmp.col--; //move left
+			if(checkPosition(tmp))
 				current.col--;
 			break;
 		case 'w':
-			FunctionRotateShape(temp);
-			if(FunctionCheckPosition(temp))
-				FunctionRotateShape(current);
+			rotatePiece(tmp);
+			if(checkPosition(tmp))
+				rotatePiece(current);
 			break;
 	}
-	FunctionDeleteShape(temp);
-	FunctionPrintTable();
+	deletePiece(tmp);
+	printTable();
 }
 
 struct timeval before_now, now;
@@ -186,19 +186,19 @@ int main() {
 	initscr();
 	gettimeofday(&before_now, NULL);
 	timeout(1);
-	FunctionGetNewShape();
-	FunctionPrintTable();
+	getNewPiece();
+	printTable();
 	while(GameOn){
 		if ((c = getch()) != ERR) {
-			FunctionManipulateCurrent(c);
+			manipulateCurrent(c);
 		}
 		gettimeofday(&now, NULL);
 		if (hasToUpdate()) {
 			before_now = now;
-			FunctionManipulateCurrent('s');
+			manipulateCurrent('s');
 		}
 	}
-	FunctionDeleteShape(current);
+	deletePiece(current);
 	endwin();
 	printf("\nGame over!\n");
 	printf("\nScore: %d\n", score);
