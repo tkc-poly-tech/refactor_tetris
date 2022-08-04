@@ -8,6 +8,7 @@ SRCS =	$(DIR_SRC)/tetris.c	\
 		$(DIR_SRC)/timer.c	\
 		$(DIR_SRC)/score.c	\
 		$(DIR_SRC)/piece_template.c	\
+		$(DIR_SRC)/view.c	\
 		
 OBJS = $(SRCS:.c=.o)
 
