@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <sys/time.h>
 #include <ncurses.h>
 
 #define ROWS 20
@@ -16,5 +15,10 @@ typedef struct {
 	char **array;
 	int width, row, col;
 } Piece;
+
+// timer.c
+void	decreaseGraceTime();
+void	resetTimer();
+int		hasGraceTimeExceeded();
 
 #endif
