@@ -23,9 +23,9 @@ void deletePiece(Piece piece);
 void rotatePiece(Piece piece);
 
 // timer.c
-void decreaseGraceTime();
+void reduceInterval();
 void resetTimer();
-int hasGraceTimeExceeded();
+int hasIntervalPassed();
 
 // score.c
 void addScore();
@@ -34,7 +34,7 @@ int getScore();
 // view.c
 void initializeWindow();
 void finalizeWindow();
-void printTable(Piece current, char table[ROWS][COLS], int score);
-void printGameOver(char table[ROWS][COLS], int score);
+void printTable(const Piece current, const char table[ROWS][COLS], const int score);
+void printGameOver(const char table[ROWS][COLS], const int score);
 
 #endif

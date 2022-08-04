@@ -11,7 +11,7 @@ void finalizeWindow()
 	endwin();
 }
 
-static void deplayPieceInTable(Piece piece, char pieceInTable[ROWS][COLS])
+static void deployPieceInTable(const Piece piece, char pieceInTable[ROWS][COLS])
 {
 	for (int i = 0; i < piece.width; i++)
 		for (int j = 0; j < piece.width; j++)
@@ -19,10 +19,10 @@ static void deplayPieceInTable(Piece piece, char pieceInTable[ROWS][COLS])
 				pieceInTable[piece.row + i][piece.col + j] = piece.array[i][j];
 }
 
-void printTable(Piece current, char table[ROWS][COLS], int score)
+void printTable(const Piece current, const char table[ROWS][COLS], const int score)
 {
 	char pieceInTable[ROWS][COLS] = {0};
-	deplayPieceInTable(current, pieceInTable);
+	deployPieceInTable(current, pieceInTable);
 	clear();
 	for (int i = 0; i < COLS - 9; i++)
 		printw(" ");
@@ -37,7 +37,7 @@ void printTable(Piece current, char table[ROWS][COLS], int score)
 	printw(FORMAT_SCORE, score);
 }
 
-void printGameOver(char table[ROWS][COLS], int score)
+void printGameOver(const char table[ROWS][COLS], const int score)
 {
 	for (int i = 0; i < ROWS; i++)
 	{
