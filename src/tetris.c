@@ -2,8 +2,6 @@
 
 char Table[ROWS][COLS] = {0};
 char GameOn = TRUE;
-suseconds_t timer = 400000;
-int decrease = 1000;
 
 Piece current;
 
@@ -110,7 +108,7 @@ void checkLines()
 					Table[k][l]=Table[k-1][l];
 			for(l=0;l<COLS;l++)
 				Table[k][l]=0;
-			timer-=decrease--;
+			decreaseGraceTime();
 		}
 	}
 	addScore(count);
@@ -172,17 +170,11 @@ void manipulateCurrent(int action)
 	printTable();
 }
 
-struct timeval before_now, now;
-int hasToUpdate(){
-	return ((suseconds_t)(now.tv_sec*1000000 + now.tv_usec) - ((suseconds_t)before_now.tv_sec*1000000 + before_now.tv_usec)) > timer;
-}
-
-
 int main() {
 	srand(time(0));
 	int c;
 	initscr();
-	gettimeofday(&before_now, NULL);
+	resetTimer();
 	timeout(1);
 	getNewPiece();
 	printTable();
@@ -190,9 +182,8 @@ int main() {
 		if ((c = getch()) != ERR) {
 			manipulateCurrent(c);
 		}
-		gettimeofday(&now, NULL);
-		if (hasToUpdate()) {
-			before_now = now;
+		if (hasGraceTimeExceeded()) {
+			resetTimer();
 			manipulateCurrent('s');
 		}
 	}

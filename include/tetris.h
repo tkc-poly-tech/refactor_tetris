@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <sys/time.h>
 #include <ncurses.h>
 
 #define ROWS 20
@@ -17,8 +16,14 @@ typedef struct {
 	int width, row, col;
 } Piece;
 
+// timer.c
+void	decreaseGraceTime();
+void	resetTimer();
+int		hasGraceTimeExceeded();
+
 // score.c
 void addScore(int count_lines);
 int	getScore();
+
 
 #endif

@@ -5,6 +5,7 @@ NAME = tetris
 
 DIR_SRC = src
 SRCS =	$(DIR_SRC)/tetris.c	\
+		$(DIR_SRC)/timer.c	\
 		$(DIR_SRC)/score.c	\
 		
 OBJS = $(SRCS:.c=.o)
