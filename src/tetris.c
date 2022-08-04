@@ -93,25 +93,34 @@ void writeToTable()
 	}
 }
 
+int isLineFilled(int row, char table[ROWS][COLS])
+{
+	int i;
+	for (i = 0; i < COLS; i++)
+		if (table[row][i] == 0)
+			return FALSE;
+	return TRUE;
+}
+
+void deleteLine(int row)
+{
+	int i, j;
+	for (i = row; i >= 1; i--)
+		for (j = 0; j < COLS; j++)
+			Table[i][j] = Table[i - 1][j];
+	for (j = 0; j < COLS; j++)
+		Table[0][j] = 0;
+}
+
 void checkLines()
 {
-	int n, m, sum, count = 0;
-	for (n = 0; n < ROWS; n++)
+	int i, count = 0;
+	for (i = 0; i < ROWS; i++)
 	{
-		sum = 0;
-		for (m = 0; m < COLS; m++)
-		{
-			sum += Table[n][m];
-		}
-		if (sum == COLS)
+		if (isLineFilled(i, Table))
 		{
 			count++;
-			int l, k;
-			for (k = n; k >= 1; k--)
-				for (l = 0; l < COLS; l++)
-					Table[k][l] = Table[k - 1][l];
-			for (l = 0; l < COLS; l++)
-				Table[k][l] = 0;
+			deleteLine(i);
 			decreaseGraceTime();
 		}
 	}
