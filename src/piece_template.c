@@ -9,7 +9,7 @@ const Piece pieceTemplates[7] = {
 	{(char *[]){(char[]){1, 1}, (char[]){1, 1}}, 2, 0, 0},
 	{(char *[]){(char[]){0, 0, 0, 0}, (char[]){1, 1, 1, 1}, (char[]){0, 0, 0, 0}, (char[]){0, 0, 0, 0}}, 4, 0, 0}};
 
-Piece randomPieces()
+Piece getRandomPiece()
 {
 	return (pieceTemplates[rand() % 7]);
 }
