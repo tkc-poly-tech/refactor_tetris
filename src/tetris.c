@@ -190,6 +190,19 @@ void manipulateCurrent(int action)
 	printTable();
 }
 
+void printGameOver(int score)
+{
+	int i, j;
+	for (i = 0; i < ROWS; i++)
+	{
+		for (j = 0; j < COLS; j++)
+			printf("%c ", Table[i][j] ? '#' : '.');
+		printf("\n");
+	}
+	printf("\nGame over!\n");
+	printf("\nScore: %d\n", score);
+}
+
 int main()
 {
 	srand(time(0));
@@ -213,7 +226,6 @@ int main()
 	}
 	deletePiece(current);
 	endwin();
-	printf("\nGame over!\n");
-	printf("\nScore: %d\n", getScore());
+	printGameOver(getScore());
 	return 0;
 }
