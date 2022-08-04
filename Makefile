@@ -4,7 +4,9 @@ CFLAGS = -Wall -Wextra -Werror -I $(DIR_INCLUDE)
 NAME = tetris
 
 DIR_SRC = src
-SRCS =	$(DIR_SRC)/tetris.c
+SRCS =	$(DIR_SRC)/tetris.c	\
+		$(DIR_SRC)/score.c	\
+		
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)

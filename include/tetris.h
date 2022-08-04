@@ -17,4 +17,8 @@ typedef struct {
 	int width, row, col;
 } Piece;
 
+// score.c
+void addScore(int count_lines);
+int	getScore();
+
 #endif
