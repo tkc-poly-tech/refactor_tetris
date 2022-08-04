@@ -127,32 +127,7 @@ void checkLines()
 	addScore(count);
 }
 
-void printTable()
-{
-	char buffer[ROWS][COLS] = {0};
-	int i, j;
-	for (i = 0; i < current.width; i++)
-	{
-		for (j = 0; j < current.width; j++)
-		{
-			if (current.array[i][j])
-				buffer[current.row + i][current.col + j] = current.array[i][j];
-		}
-	}
-	clear();
-	for (i = 0; i < COLS - 9; i++)
-		printw(" ");
-	printw("42 Tetris\n");
-	for (i = 0; i < ROWS; i++)
-	{
-		for (j = 0; j < COLS; j++)
-		{
-			printw("%c ", (Table[i][j] + buffer[i][j]) ? '#' : '.');
-		}
-		printw("\n");
-	}
-	printw("\nScore: %d\n", getScore());
-}
+
 
 void manipulateCurrent(int action)
 {
@@ -187,20 +162,7 @@ void manipulateCurrent(int action)
 		break;
 	}
 	deletePiece(tmp);
-	printTable();
-}
-
-void printGameOver(int score)
-{
-	int i, j;
-	for (i = 0; i < ROWS; i++)
-	{
-		for (j = 0; j < COLS; j++)
-			printf("%c ", Table[i][j] ? '#' : '.');
-		printf("\n");
-	}
-	printf("\nGame over!\n");
-	printf("\nScore: %d\n", score);
+	printTable(current, Table, getScore());
 }
 
 int main()
@@ -208,10 +170,10 @@ int main()
 	srand(time(0));
 	int c;
 	initscr();
-	resetTimer();
 	timeout(1);
+	resetTimer();
 	getNewPiece();
-	printTable();
+	printTable(current, Table, getScore());
 	while (GameOn)
 	{
 		if ((c = getch()) != ERR)
@@ -226,6 +188,6 @@ int main()
 	}
 	deletePiece(current);
 	endwin();
-	printGameOver(getScore());
+	printGameOver(Table, getScore());
 	return 0;
 }
