@@ -22,16 +22,17 @@ void printTable(Piece current, char table[ROWS][COLS], int score)
 	clear();
 	for (i = 0; i < COLS - 9; i++)
 		printw(" ");
-	printw("42 Tetris\n");
+	printw(FORMAT_HEADER);
 	for (i = 0; i < ROWS; i++)
 	{
 		for (j = 0; j < COLS; j++)
 		{
-			printw("%c ", (table[i][j] + buffer[i][j]) ? '#' : '.');
+			printw("%c ", (table[i][j] + buffer[i][j]) ? CHAR_PIECE : CHAR_EMPTY);
 		}
 		printw("\n");
 	}
-	printw("\nScore: %d\n", score);
+	printw("\n");
+	printw(FORMAT_SCORE, score);
 }
 
 void printGameOver(char table[ROWS][COLS], int score)
@@ -40,9 +41,11 @@ void printGameOver(char table[ROWS][COLS], int score)
 	for (i = 0; i < ROWS; i++)
 	{
 		for (j = 0; j < COLS; j++)
-			printf("%c ", table[i][j] ? '#' : '.');
+			printf("%c ", table[i][j] ? CHAR_PIECE : CHAR_EMPTY);
 		printf("\n");
 	}
-	printf("\nGame over!\n");
-	printf("\nScore: %d\n", score);
+	printf("\n");
+	printf(FORMAT_GAMEOVER);
+	printf("\n");
+	printf(FORMAT_SCORE, score);
 }

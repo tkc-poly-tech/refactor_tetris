@@ -3,7 +3,11 @@
 
 #include <ncurses.h>
 
-#define VIEW_HEADER "42 Tetris\n"
+#define CHAR_EMPTY '.'
+#define CHAR_PIECE '#'
 
+#define FORMAT_HEADER "42 Tetris\n"
+#define FORMAT_GAMEOVER "Game over!\n"
+#define FORMAT_SCORE "Score: %d\n"
 
 #endif
