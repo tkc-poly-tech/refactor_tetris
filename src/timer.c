@@ -1,15 +1,16 @@
 #include "timer.h"
 
-suseconds_t graceTime = INIT_GRACE_TIME;
+suseconds_t interval = INIT_GRACE_TIME;
 int decrease = INIT_DECREASE;
 t_timeval settedTime;
 
-void decreaseGraceTime()
+void reduceInterval()
 {
-	graceTime -= decrease--;
+	interval -= decrease;
+	decrease--;
 }
 
-static suseconds_t convertToSuseconds(t_timeval time)
+static suseconds_t convertToSuseconds(const t_timeval time)
 {
 	return (time.tv_sec * 1000000 + time.tv_usec);
 }
@@ -19,10 +20,10 @@ void resetTimer()
 	gettimeofday(&settedTime, NULL);
 }
 
-int hasGraceTimeExceeded()
+int hasIntervalPassed()
 {
 	t_timeval now;
 	gettimeofday(&now, NULL);
-	suseconds_t passedTime = convertToSuseconds(now) - convertToSuseconds(settedTime);
-	return (passedTime > graceTime);
+	const suseconds_t passedTime = convertToSuseconds(now) - convertToSuseconds(settedTime);
+	return (passedTime > interval);
 }

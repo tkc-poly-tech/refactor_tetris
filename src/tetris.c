@@ -79,7 +79,7 @@ void checkLines(char (*tablePtr)[ROWS][COLS])
 		{
 			addScore();
 			putDownLines(i, tablePtr);
-			decreaseGraceTime();
+			reduceInterval();
 		}
 	}
 }
@@ -134,7 +134,7 @@ int main()
 		{
 			manipulateCurrent(c);
 		}
-		if (hasGraceTimeExceeded())
+		if (hasIntervalPassed())
 		{
 			resetTimer();
 			manipulateCurrent('s');
