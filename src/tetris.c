@@ -1,7 +1,6 @@
 #include "tetris.h" 
 
 char Table[ROWS][COLS] = {0};
-int score = 0;
 char GameOn = TRUE;
 
 Piece current;
@@ -112,7 +111,7 @@ void checkLines()
 			decreaseGraceTime();
 		}
 	}
-	score += 100*count;
+	addScore(count);
 }
 
 void printTable(){
@@ -134,7 +133,7 @@ void printTable(){
 		}
 		printw("\n");
 	}
-	printw("\nScore: %d\n", score);
+	printw("\nScore: %d\n", getScore());
 }
 
 void manipulateCurrent(int action)
@@ -173,7 +172,6 @@ void manipulateCurrent(int action)
 
 int main() {
 	srand(time(0));
-	score = 0;
 	int c;
 	initscr();
 	resetTimer();
@@ -192,6 +190,6 @@ int main() {
 	deletePiece(current);
 	endwin();
 	printf("\nGame over!\n");
-	printf("\nScore: %d\n", score);
+	printf("\nScore: %d\n", getScore());
 	return 0;
 }
