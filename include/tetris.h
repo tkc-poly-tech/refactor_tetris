@@ -17,7 +17,10 @@ typedef struct
 	int width, row, col;
 } Piece;
 
-Piece randomPieces();
+Piece getRandomPiece();
+Piece copyPiece(Piece piece);
+void deletePiece(Piece piece);
+void rotatePiece(Piece piece);
 
 // timer.c
 void decreaseGraceTime();
