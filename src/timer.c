@@ -1,8 +1,8 @@
 #include "timer.h"
 
-suseconds_t	graceTime = INIT_GRACE_TIME;
-int			decrease = INIT_DECREASE;
-t_timeval	settedTime;
+suseconds_t graceTime = INIT_GRACE_TIME;
+int decrease = INIT_DECREASE;
+t_timeval settedTime;
 
 void decreaseGraceTime()
 {
@@ -21,7 +21,7 @@ void resetTimer()
 
 int hasGraceTimeExceeded()
 {
-	t_timeval	now;
+	t_timeval now;
 	gettimeofday(&now, NULL);
 	suseconds_t passedTime = convertToSuseconds(now) - convertToSuseconds(settedTime);
 	return (passedTime > graceTime);

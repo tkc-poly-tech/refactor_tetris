@@ -1,4 +1,4 @@
-#define UNIT_SCORE 100
+#include "score.h"
 
 int score = 0;
 
