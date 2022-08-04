@@ -1,7 +1,7 @@
 #include "tetris.h"
 
 char Table[ROWS][COLS] = {0};
-char GameOn = TRUE;
+char canGameContinue = TRUE;
 
 Piece current;
 
@@ -61,7 +61,7 @@ void getNewPiece() // return s rondom piece
 	current = new;
 	if (!checkPosition(current))
 	{
-		GameOn = FALSE;
+		canGameContinue = FALSE;
 	}
 }
 
@@ -118,8 +118,6 @@ void checkLines()
 	addScore(count);
 }
 
-
-
 void manipulateCurrent(int action)
 {
 	Piece tmp = copyPiece(current);
@@ -160,12 +158,11 @@ int main()
 {
 	srand(time(0));
 	int c;
-	initscr();
-	timeout(1);
+	initializeWindow();
 	resetTimer();
 	getNewPiece();
 	printTable(current, Table, getScore());
-	while (GameOn)
+	while (canGameContinue)
 	{
 		if ((c = getch()) != ERR)
 		{
@@ -178,7 +175,7 @@ int main()
 		}
 	}
 	deletePiece(current);
-	endwin();
+	finalizeWindow();
 	printGameOver(Table, getScore());
 	return 0;
 }

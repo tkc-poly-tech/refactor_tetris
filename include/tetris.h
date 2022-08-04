@@ -29,7 +29,8 @@ void addScore(int count_lines);
 int getScore();
 
 // view.c
-void initialView();
+void initializeWindow();
+void finalizeWindow();
 void printTable(Piece current, char table[ROWS][COLS], int score);
 void printGameOver(char table[ROWS][COLS], int score);
 
