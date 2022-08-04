@@ -5,16 +5,15 @@ char canGameContinue = TRUE;
 
 Piece current;
 
-int checkPosition(Piece piece) // check position of copied piece
+int checkPosition(const Piece piece) // check position of copied piece
 {
-	char **array = piece.array;
-	int i, j;
-	for (i = 0; i < piece.width; i++)
+	char **const array = piece.array;
+	for (int i = 0; i < piece.width; i++)
 	{
-		for (j = 0; j < piece.width; j++)
+		for (int j = 0; j < piece.width; j++)
 		{
-			if ((piece.col + j < 0 || piece.col + j >= COLS || piece.row + i >= ROWS))
-			{					 // out of borders
+			if ((piece.col + j < 0 || piece.col + j >= COLS || piece.row + i >= ROWS)) // out of borders
+			{
 				if (array[i][j]) // but is it just a phantom?
 					return FALSE;
 			}
@@ -33,40 +32,31 @@ void getNewPiece() // return s rondom piece
 	deletePiece(current);
 	current = new;
 	if (!checkPosition(current))
-	{
 		canGameContinue = FALSE;
-	}
 }
 
 void writeToTable()
 {
-	int i, j;
-	for (i = 0; i < current.width; i++)
-	{
-		for (j = 0; j < current.width; j++)
-		{
+	for (int i = 0; i < current.width; i++)
+		for (int j = 0; j < current.width; j++)
 			if (current.array[i][j])
 				Table[current.row + i][current.col + j] = current.array[i][j];
-		}
-	}
 }
 
-int isLineFilled(int row, char table[ROWS][COLS])
+int isLineFilled(const int row, const char table[ROWS][COLS])
 {
-	int i;
-	for (i = 0; i < COLS; i++)
+	for (int i = 0; i < COLS; i++)
 		if (table[row][i] == 0)
 			return FALSE;
 	return TRUE;
 }
 
-void putDownLines(int row, char (*tablePtr)[ROWS][COLS])
+void putDownLines(const int row, char (*tablePtr)[ROWS][COLS])
 {
-	int i, j;
-	for (i = row; i >= 1; i--)
-		for (j = 0; j < COLS; j++)
+	for (int i = row; i >= 1; i--)
+		for (int j = 0; j < COLS; j++)
 			(*tablePtr)[i][j] = (*tablePtr)[i - 1][j];
-	for (j = 0; j < COLS; j++)
+	for (int j = 0; j < COLS; j++)
 		(*tablePtr)[0][j] = 0;
 }
 
@@ -84,7 +74,7 @@ void checkLines(char (*tablePtr)[ROWS][COLS])
 	}
 }
 
-void manipulateCurrent(int action)
+void manipulateCurrent(const int action)
 {
 	Piece tmp = copyPiece(current);
 	switch (action)
@@ -131,9 +121,7 @@ int main()
 	while (canGameContinue)
 	{
 		if ((c = getch()) != ERR)
-		{
 			manipulateCurrent(c);
-		}
 		if (hasIntervalPassed())
 		{
 			resetTimer();
