@@ -2,9 +2,9 @@
 
 int score = 0;
 
-void addScore(int count_lines)
+void addScore()
 {
-	score += UNIT_SCORE * count_lines;
+	score += UNIT_SCORE;
 }
 
 int getScore()

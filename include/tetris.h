@@ -28,7 +28,7 @@ void resetTimer();
 int hasGraceTimeExceeded();
 
 // score.c
-void addScore(int count_lines);
+void addScore();
 int getScore();
 
 // view.c

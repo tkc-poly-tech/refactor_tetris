@@ -60,29 +60,28 @@ int isLineFilled(int row, char table[ROWS][COLS])
 	return TRUE;
 }
 
-void deleteLine(int row)
+void putDownLines(int row, char (*tablePtr)[ROWS][COLS])
 {
 	int i, j;
 	for (i = row; i >= 1; i--)
 		for (j = 0; j < COLS; j++)
-			Table[i][j] = Table[i - 1][j];
+			(*tablePtr)[i][j] = (*tablePtr)[i - 1][j];
 	for (j = 0; j < COLS; j++)
-		Table[0][j] = 0;
+		(*tablePtr)[0][j] = 0;
 }
 
-void checkLines()
+void checkLines(char (*tablePtr)[ROWS][COLS])
 {
-	int i, count = 0;
+	int i;
 	for (i = 0; i < ROWS; i++)
 	{
-		if (isLineFilled(i, Table))
+		if (isLineFilled(i, *tablePtr))
 		{
-			count++;
-			deleteLine(i);
+			addScore();
+			putDownLines(i, tablePtr);
 			decreaseGraceTime();
 		}
 	}
-	addScore(count);
 }
 
 void manipulateCurrent(int action)
@@ -97,7 +96,7 @@ void manipulateCurrent(int action)
 		else
 		{
 			writeToTable();
-			checkLines(); // check full lines, after putting it down
+			checkLines(&Table); // check full lines, after putting it down
 			getNewPiece();
 		}
 		break;
