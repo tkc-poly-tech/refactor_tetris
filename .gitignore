@@ -1,7 +1,4 @@
 a.out
 .vscode
-test
 tetris
-origin.c
-c_tetris.c
 *.o
