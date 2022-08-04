@@ -1,5 +1,5 @@
 #ifndef TETRIS_H
-# define TETRIS_H
+#define TETRIS_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,19 +11,19 @@
 #define TRUE 1
 #define FALSE 0
 
-typedef struct {
+typedef struct
+{
 	char **array;
 	int width, row, col;
 } Piece;
 
 // timer.c
-void	decreaseGraceTime();
-void	resetTimer();
-int		hasGraceTimeExceeded();
+void decreaseGraceTime();
+void resetTimer();
+int hasGraceTimeExceeded();
 
 // score.c
 void addScore(int count_lines);
-int	getScore();
-
+int getScore();
 
 #endif

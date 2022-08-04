@@ -1,7 +1,7 @@
 #ifndef TIMER_H
-# define TIMER_H
+#define TIMER_H
 
-# include <sys/time.h>
+#include <sys/time.h>
 
 #define INIT_GRACE_TIME 400000;
 #define INIT_DECREASE 1000;
