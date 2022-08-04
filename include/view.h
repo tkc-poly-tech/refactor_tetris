@@ -1,6 +1,7 @@
 #ifndef VIEW_H
 #define VIEW_H
 
+#include "tetris.h"
 #include <ncurses.h>
 
 #define CHAR_EMPTY '.'
