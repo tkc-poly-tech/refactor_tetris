@@ -5,15 +5,6 @@ char GameOn = TRUE;
 
 Piece current;
 
-const Piece pieceTemplates[7] = {
-	{(char *[]){(char[]){0, 1, 1}, (char[]){1, 1, 0}, (char[]){0, 0, 0}}, 3, 0, 0},
-	{(char *[]){(char[]){1, 1, 0}, (char[]){0, 1, 1}, (char[]){0, 0, 0}}, 3, 0, 0},
-	{(char *[]){(char[]){0, 1, 0}, (char[]){1, 1, 1}, (char[]){0, 0, 0}}, 3, 0, 0},
-	{(char *[]){(char[]){0, 0, 1}, (char[]){1, 1, 1}, (char[]){0, 0, 0}}, 3, 0, 0},
-	{(char *[]){(char[]){1, 0, 0}, (char[]){1, 1, 1}, (char[]){0, 0, 0}}, 3, 0, 0},
-	{(char *[]){(char[]){1, 1}, (char[]){1, 1}}, 2, 0, 0},
-	{(char *[]){(char[]){0, 0, 0, 0}, (char[]){1, 1, 1, 1}, (char[]){0, 0, 0, 0}, (char[]){0, 0, 0, 0}}, 4, 0, 0}};
-
 Piece copyPiece(Piece piece)
 {
 	Piece copied = piece;
@@ -63,7 +54,7 @@ int checkPosition(Piece piece) // check position of copied piece
 
 void getNewPiece() // return s rondom piece
 {
-	Piece new = copyPiece(pieceTemplates[rand() % 7]);
+	Piece new = copyPiece(randomPieces());
 	new.col = rand() % (COLS - new.width + 1);
 	new.row = 0;
 	deletePiece(current);

@@ -17,6 +17,8 @@ typedef struct
 	int width, row, col;
 } Piece;
 
+Piece randomPieces();
+
 // timer.c
 void decreaseGraceTime();
 void resetTimer();
