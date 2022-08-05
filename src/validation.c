@@ -1,4 +1,4 @@
-#include "tetris.h"
+#include "validation.h"
 
 static int isOutofTable(const Piece piece, const int i, const int j)
 {

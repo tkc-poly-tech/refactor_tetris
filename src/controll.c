@@ -1,4 +1,4 @@
-#include "tetris.h"
+#include "validation.h"
 
 void spawnNewPiece(Piece *piecePtr) // return s rondom piece
 {

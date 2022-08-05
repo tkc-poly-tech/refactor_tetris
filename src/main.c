@@ -1,4 +1,5 @@
 #include "tetris.h"
+#include "validation.h"
 
 char Table[ROWS][COLS] = {0};
 Piece current;
