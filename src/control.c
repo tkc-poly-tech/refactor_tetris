@@ -4,37 +4,35 @@
 
 static void moveDown(Piece *currentPtr, char (*tablePtr)[ROWS_TABLE][COLS_TABLE])
 {
-	Piece tmp = copyPiece(*currentPtr);
-	tmp.row++;
-	if (isValidPosition(tmp, *tablePtr))
-		currentPtr->row++;
-	else
-	{
-		updateTable(*currentPtr, tablePtr);
-		spawnNewPiece(currentPtr);
-	}
-	deletePiece(tmp);
+	currentPtr->row++;
+	if (isValidPosition(*currentPtr, *tablePtr))
+		return;
+	currentPtr->row--;
+	updateTable(*currentPtr, tablePtr);
+	spawnNewPiece(currentPtr);
 }
 
-static void moveRight(Piece *currentPtr, char table[ROWS_TABLE][COLS_TABLE])
+static void moveRight(Piece *currentPtr, char (*tablePtr)[ROWS_TABLE][COLS_TABLE])
 {
 	currentPtr->col++;
-	if (!isValidPosition(*currentPtr, table))
-		currentPtr->col--;
+	if (isValidPosition(*currentPtr, *tablePtr))
+		return;
+	currentPtr->col--;
 }
 
-static void moveLeft(Piece *currentPtr, char table[ROWS_TABLE][COLS_TABLE])
+static void moveLeft(Piece *currentPtr, char (*tablePtr)[ROWS_TABLE][COLS_TABLE])
 {
 	currentPtr->col--;
-	if (!isValidPosition(*currentPtr, table))
-		currentPtr->col++;
+	if (isValidPosition(*currentPtr, *tablePtr))
+		return;
+	currentPtr->col++;
 }
 
-static void moveRotate(Piece *currentPtr, char table[ROWS_TABLE][COLS_TABLE])
+static void moveRotate(Piece *currentPtr, char (*tablePtr)[ROWS_TABLE][COLS_TABLE])
 {
 	Piece tmp = copyPiece(*currentPtr);
 	rotatePiece(tmp);
-	if (isValidPosition(tmp, table))
+	if (isValidPosition(tmp, *tablePtr))
 		rotatePiece(*currentPtr);
 	deletePiece(tmp);
 }
@@ -47,13 +45,13 @@ void control(Piece *currentPtr, char (*tablePtr)[ROWS_TABLE][COLS_TABLE], const 
 		moveDown(currentPtr, tablePtr);
 		break;
 	case 'd':
-		moveRight(currentPtr, *tablePtr);
+		moveRight(currentPtr, tablePtr);
 		break;
 	case 'a':
-		moveLeft(currentPtr, *tablePtr);
+		moveLeft(currentPtr, tablePtr);
 		break;
 	case 'w':
-		moveRotate(currentPtr, *tablePtr);
+		moveRotate(currentPtr, tablePtr);
 		break;
 	}
 }
