@@ -8,4 +8,8 @@
 
 typedef struct timeval t_timeval;
 
+void reduceInterval();
+void resetTimer();
+int hasIntervalPassed();
+
 #endif

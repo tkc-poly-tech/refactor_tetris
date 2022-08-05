@@ -3,4 +3,7 @@
 
 #define UNIT_SCORE 100
 
+void addScore();
+int getScore();
+
 #endif
