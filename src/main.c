@@ -24,9 +24,11 @@ void run()
 		const int c = getch();
 		if (c != ERR)
 			controllCurrent(&current, &Table, c);
+			printTable(current, Table, getScore());
 		if (hasIntervalPassed())
 		{
 			controllCurrent(&current, &Table, 's');
+			printTable(current, Table, getScore());
 			resetTimer();
 		}
 	}
@@ -36,7 +38,7 @@ void finalize()
 {
 	deletePiece(current);
 	finalizeWindow();
-	printGameOver(Table, getScore());
+	printResult(Table, getScore());
 }
 
 int main()

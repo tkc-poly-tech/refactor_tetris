@@ -24,7 +24,7 @@ void printTable(const Piece current, const char table[ROWS][COLS], const int sco
 	char pieceInTable[ROWS][COLS] = {0};
 	deployPieceInTable(current, pieceInTable);
 	clear();
-	for (int i = 0; i < COLS - 9; i++)
+	for (int i = 0; i < COLS - OFFSET_HEADER; i++)
 		printw(" ");
 	printw(FORMAT_HEADER);
 	for (int i = 0; i < ROWS; i++)
@@ -37,7 +37,7 @@ void printTable(const Piece current, const char table[ROWS][COLS], const int sco
 	printw(FORMAT_SCORE, score);
 }
 
-void printGameOver(const char table[ROWS][COLS], const int score)
+void printResult(const char table[ROWS][COLS], const int score)
 {
 	for (int i = 0; i < ROWS; i++)
 	{
