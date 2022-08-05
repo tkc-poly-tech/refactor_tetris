@@ -1,6 +1,8 @@
 #ifndef PIECE_H
 #define PIECE_H
 
+#include <stdlib.h>
+
 typedef struct
 {
 	char **array;

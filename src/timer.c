@@ -1,13 +1,13 @@
 #include "timer.h"
 
-suseconds_t interval = INIT_GRACE_TIME;
-int decrease = INIT_DECREASE;
-t_timeval settedTime;
+suseconds_t Interval = INIT_INTERVAL;
+int Decrease = INIT_DECREASE;
+t_timeval SettedTime;
 
 void reduceInterval()
 {
-	interval -= decrease;
-	decrease--;
+	Interval -= Decrease;
+	Decrease--;
 }
 
 static suseconds_t convertToSuseconds(const t_timeval time)
@@ -17,13 +17,13 @@ static suseconds_t convertToSuseconds(const t_timeval time)
 
 void resetTimer()
 {
-	gettimeofday(&settedTime, NULL);
+	gettimeofday(&SettedTime, NULL);
 }
 
 int hasIntervalPassed()
 {
 	t_timeval now;
 	gettimeofday(&now, NULL);
-	const suseconds_t passedTime = convertToSuseconds(now) - convertToSuseconds(settedTime);
-	return (passedTime > interval);
+	const suseconds_t passedTime = convertToSuseconds(now) - convertToSuseconds(SettedTime);
+	return (passedTime > Interval);
 }

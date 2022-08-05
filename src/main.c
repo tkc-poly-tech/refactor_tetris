@@ -1,6 +1,6 @@
-#include <time.h>
 #include "utils.h"
 #include "piece.h"
+#include "random.h"
 #include "view.h"
 #include "control.h"
 #include "validation.h"
@@ -8,34 +8,34 @@
 #include "timer.h"
 
 char Table[ROWS_TABLE][COLS_TABLE] = {0};
-Piece current;
+Piece Current;
 
-static int canGameContinue(const Piece current, char table[ROWS_TABLE][COLS_TABLE])
+static int canGameContinue()
 {
-	return isValidPosition(current, table);
+	return isValidPosition(Current, Table);
 }
 
 static void initialize()
 {
-	srand(time(0));
+	initializeRandom();
 	initializeWindow();
 	resetTimer();
-	spawnNewPiece(&current);
-	printTable(current, Table, getScore());
+	spawnNewPiece(&Current);
+	printTable(Current, Table, getScore());
 }
 
 static void run()
 {
-	while (canGameContinue(current, Table))
+	while (canGameContinue())
 	{
 		const int c = getch();
 		if (c != ERR)
-			control(&current, &Table, c);
-			printTable(current, Table, getScore());
+			control(&Current, &Table, c);
+		printTable(Current, Table, getScore());
 		if (hasIntervalPassed())
 		{
-			control(&current, &Table, 's');
-			printTable(current, Table, getScore());
+			control(&Current, &Table, 's');
+			printTable(Current, Table, getScore());
 			resetTimer();
 		}
 	}
@@ -43,7 +43,7 @@ static void run()
 
 static void finalize()
 {
-	deletePiece(current);
+	deletePiece(Current);
 	finalizeWindow();
 	printResult(Table, getScore());
 }
