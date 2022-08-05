@@ -8,7 +8,6 @@ SRCS =	$(DIR_SRC)/main.c	\
 		$(DIR_SRC)/timer.c	\
 		$(DIR_SRC)/score.c	\
 		$(DIR_SRC)/piece.c	\
-		$(DIR_SRC)/piece_template.c	\
 		$(DIR_SRC)/controll.c	\
 		$(DIR_SRC)/validation.c	\
 		$(DIR_SRC)/view.c	\
