@@ -11,6 +11,7 @@ SRCS =	$(DIR_SRC)/main.c	\
 		$(DIR_SRC)/controll.c	\
 		$(DIR_SRC)/validation.c	\
 		$(DIR_SRC)/view.c	\
+		$(DIR_SRC)/table.c	\
 		
 OBJS = $(SRCS:.c=.o)
 
