@@ -3,7 +3,7 @@
 
 #include <sys/time.h>
 
-#define INIT_GRACE_TIME 400000;
+#define INIT_INTERVAL 400000;
 #define INIT_DECREASE 1000;
 
 typedef struct timeval t_timeval;

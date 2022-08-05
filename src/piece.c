@@ -1,5 +1,6 @@
 #include "piece.h"
 #include "utils.h"
+#include "random.h"
 
 const Piece pieceTemplates[7] = {
 	{(char *[]){(char[]){0, 1, 1}, (char[]){1, 1, 0}, (char[]){0, 0, 0}}, 3, 0, 0},
@@ -12,7 +13,7 @@ const Piece pieceTemplates[7] = {
 
 Piece getRandomPiece()
 {
-	return (pieceTemplates[rand() % 7]);
+	return (pieceTemplates[getRandomNumber() % 7]);
 }
 
 static void freeArray(int index, char **array)
@@ -55,10 +56,8 @@ void rotatePiece(Piece piece) // rotate 90 degrees clockwise
 	Piece tmp = copyPiece(piece);
 	int width = piece.width;
 	for (int i = 0; i < width; i++)
-	{
 		for (int j = 0, k = width - 1; j < width; j++, k--)
 			piece.array[i][j] = tmp.array[k][i];
-	}
 	deletePiece(tmp);
 }
 

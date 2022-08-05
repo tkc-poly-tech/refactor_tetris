@@ -1,13 +1,13 @@
 #include "score.h"
 
-int score = 0;
+int Score = 0;
 
 void addScore()
 {
-	score += UNIT_SCORE;
+	Score += UNIT_SCORE;
 }
 
 int getScore()
 {
-	return score;
+	return Score;
 }

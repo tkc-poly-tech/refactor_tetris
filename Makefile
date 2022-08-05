@@ -7,6 +7,7 @@ DIR_SRC = src
 SRCS =	$(DIR_SRC)/main.c	\
 		$(DIR_SRC)/timer.c	\
 		$(DIR_SRC)/score.c	\
+		$(DIR_SRC)/random.c	\
 		$(DIR_SRC)/piece.c	\
 		$(DIR_SRC)/control.c	\
 		$(DIR_SRC)/validation.c	\
