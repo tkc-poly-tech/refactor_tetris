@@ -50,7 +50,7 @@ void deletePiece(Piece piece)
 	free(piece.array);
 }
 
-void rotatePiece(Piece piece) // rotates clockwise
+void rotatePiece(Piece piece) // rotate 90 degrees clockwise
 {
 	Piece tmp = copyPiece(piece);
 	int width = piece.width;

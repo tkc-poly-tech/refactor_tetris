@@ -2,9 +2,9 @@
 
 static int isOutofTable(const Piece piece, const int i, const int j)
 {
-	if ((piece.col + j < 0 || piece.col + j >= COLS_TABLE || piece.row + i >= ROWS_TABLE)) // out of borders
+	if ((piece.col + j < 0 || piece.col + j >= COLS_TABLE || piece.row + i >= ROWS_TABLE))
 	{
-		if (piece.array[i][j]) // but is it just a phantom?
+		if (piece.array[i][j])
 			return TRUE;
 	}
 	return FALSE;
@@ -15,7 +15,7 @@ static int isPieceDuplicate(const Piece piece, char table[ROWS_TABLE][COLS_TABLE
 	return table[piece.row + i][piece.col + j] && piece.array[i][j];
 }
 
-int isValidPosition(const Piece piece, char table[ROWS_TABLE][COLS_TABLE]) // check position of copied piece
+int isValidPosition(const Piece piece, char table[ROWS_TABLE][COLS_TABLE])
 {
 	for (int i = 0; i < piece.width; i++)
 	{
