@@ -1,10 +1,9 @@
 #ifndef VALIDATION_H
 #define VALIDATION_H
 
-#include "tetris.h"
+#include "utils.h"
+#include "piece.h"
 
-int isValidPosition(const Piece piece, char table[ROWS][COLS]);
-void spawnNewPiece(Piece *currentPtr);
-void controllCurrent(Piece *currentPtr, char (*tablePtr)[ROWS][COLS], const int action);
+int isValidPosition(const Piece piece, char table[ROWS_TABLE][COLS_TABLE]);
 
 #endif

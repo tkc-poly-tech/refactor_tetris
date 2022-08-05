@@ -1,15 +1,21 @@
-#include "tetris.h"
+#include <time.h>
+#include "utils.h"
+#include "piece.h"
+#include "view.h"
+#include "control.h"
 #include "validation.h"
+#include "score.h"
+#include "timer.h"
 
-char Table[ROWS][COLS] = {0};
+char Table[ROWS_TABLE][COLS_TABLE] = {0};
 Piece current;
 
-static int canGameContinue(const Piece current, char table[ROWS][COLS])
+static int canGameContinue(const Piece current, char table[ROWS_TABLE][COLS_TABLE])
 {
 	return isValidPosition(current, table);
 }
 
-void initialize()
+static void initialize()
 {
 	srand(time(0));
 	initializeWindow();
@@ -18,24 +24,24 @@ void initialize()
 	printTable(current, Table, getScore());
 }
 
-void run()
+static void run()
 {
 	while (canGameContinue(current, Table))
 	{
 		const int c = getch();
 		if (c != ERR)
-			controllCurrent(&current, &Table, c);
+			control(&current, &Table, c);
 			printTable(current, Table, getScore());
 		if (hasIntervalPassed())
 		{
-			controllCurrent(&current, &Table, 's');
+			control(&current, &Table, 's');
 			printTable(current, Table, getScore());
 			resetTimer();
 		}
 	}
 }
 
-void finalize()
+static void finalize()
 {
 	deletePiece(current);
 	finalizeWindow();

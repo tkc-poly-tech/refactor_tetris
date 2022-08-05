@@ -1,4 +1,5 @@
-#include "tetris.h"
+#include "piece.h"
+#include "utils.h"
 
 const Piece pieceTemplates[7] = {
 	{(char *[]){(char[]){0, 1, 1}, (char[]){1, 1, 0}, (char[]){0, 0, 0}}, 3, 0, 0},
@@ -59,4 +60,13 @@ void rotatePiece(Piece piece) // rotates clockwise
 			piece.array[i][j] = tmp.array[k][i];
 	}
 	deletePiece(tmp);
+}
+
+void spawnNewPiece(Piece *piecePtr)
+{
+	Piece new = copyPiece(getRandomPiece());
+	new.col = rand() % (COLS_TABLE - new.width + 1);
+	new.row = 0;
+	deletePiece(*piecePtr);
+	*piecePtr = new;
 }

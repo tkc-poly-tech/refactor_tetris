@@ -1,15 +1,8 @@
+#include "control.h"
 #include "validation.h"
+#include "table.h"
 
-void spawnNewPiece(Piece *piecePtr)
-{
-	Piece new = copyPiece(getRandomPiece());
-	new.col = rand() % (COLS - new.width + 1);
-	new.row = 0;
-	deletePiece(*piecePtr);
-	*piecePtr = new;
-}
-
-static void moveDown(Piece *currentPtr, char (*tablePtr)[ROWS][COLS])
+static void moveDown(Piece *currentPtr, char (*tablePtr)[ROWS_TABLE][COLS_TABLE])
 {
 	Piece tmp = copyPiece(*currentPtr);
 	tmp.row++;
@@ -23,21 +16,21 @@ static void moveDown(Piece *currentPtr, char (*tablePtr)[ROWS][COLS])
 	deletePiece(tmp);
 }
 
-static void moveRight(Piece *currentPtr, char table[ROWS][COLS])
+static void moveRight(Piece *currentPtr, char table[ROWS_TABLE][COLS_TABLE])
 {
 	currentPtr->col++;
 	if (!isValidPosition(*currentPtr, table))
 		currentPtr->col--;
 }
 
-static void moveLeft(Piece *currentPtr, char table[ROWS][COLS])
+static void moveLeft(Piece *currentPtr, char table[ROWS_TABLE][COLS_TABLE])
 {
 	currentPtr->col--;
 	if (!isValidPosition(*currentPtr, table))
 		currentPtr->col++;
 }
 
-static void moveRotate(Piece *currentPtr, char table[ROWS][COLS])
+static void moveRotate(Piece *currentPtr, char table[ROWS_TABLE][COLS_TABLE])
 {
 	Piece tmp = copyPiece(*currentPtr);
 	rotatePiece(tmp);
@@ -46,7 +39,7 @@ static void moveRotate(Piece *currentPtr, char table[ROWS][COLS])
 	deletePiece(tmp);
 }
 
-void controllCurrent(Piece *currentPtr, char (*tablePtr)[ROWS][COLS], const int action)
+void control(Piece *currentPtr, char (*tablePtr)[ROWS_TABLE][COLS_TABLE], const int action)
 {
 	switch (action)
 	{

@@ -1,25 +1,27 @@
 #include "table.h"
+#include "score.h"
+#include "timer.h"
 
-static int isLineFilled(const int row, const char table[ROWS][COLS])
+static int isLineFilled(const int row, const char table[ROWS_TABLE][COLS_TABLE])
 {
-	for (int i = 0; i < COLS; i++)
+	for (int i = 0; i < COLS_TABLE; i++)
 		if (table[row][i] == 0)
 			return FALSE;
 	return TRUE;
 }
 
-static void desapearLine(const int row, char (*tablePtr)[ROWS][COLS])
+static void desapearLine(const int row, char (*tablePtr)[ROWS_TABLE][COLS_TABLE])
 {
 	for (int i = row; i >= 1; i--)
-		for (int j = 0; j < COLS; j++)
+		for (int j = 0; j < COLS_TABLE; j++)
 			(*tablePtr)[i][j] = (*tablePtr)[i - 1][j];
-	for (int j = 0; j < COLS; j++)
+	for (int j = 0; j < COLS_TABLE; j++)
 		(*tablePtr)[0][j] = 0;
 }
 
-static void desapearFilledLines(char (*tablePtr)[ROWS][COLS])
+static void desapearFilledLines(char (*tablePtr)[ROWS_TABLE][COLS_TABLE])
 {
-	for (int i = 0; i < ROWS; i++)
+	for (int i = 0; i < ROWS_TABLE; i++)
 	{
 		if (isLineFilled(i, *tablePtr))
 		{
@@ -30,7 +32,7 @@ static void desapearFilledLines(char (*tablePtr)[ROWS][COLS])
 	}
 }
 
-static void fixPieceToTable(const Piece piece, char (*tablePtr)[ROWS][COLS])
+static void fixPieceToTable(const Piece piece, char (*tablePtr)[ROWS_TABLE][COLS_TABLE])
 {
 	for (int i = 0; i < piece.width; i++)
 		for (int j = 0; j < piece.width; j++)
@@ -38,7 +40,7 @@ static void fixPieceToTable(const Piece piece, char (*tablePtr)[ROWS][COLS])
 				(*tablePtr)[piece.row + i][piece.col + j] = piece.array[i][j];
 }
 
-void updateTable(const Piece piece, char (*tablePtr)[ROWS][COLS])
+void updateTable(const Piece piece, char (*tablePtr)[ROWS_TABLE][COLS_TABLE])
 {
 	fixPieceToTable(piece, tablePtr);
 	desapearFilledLines(tablePtr);
