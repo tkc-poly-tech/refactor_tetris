@@ -7,6 +7,7 @@
 #define CHAR_EMPTY '.'
 #define CHAR_PIECE '#'
 
+#define OFFSET_HEADER 9
 #define FORMAT_HEADER "42 Tetris\n"
 #define FORMAT_GAMEOVER "Game over!\n"
 #define FORMAT_SCORE "Score: %d\n"

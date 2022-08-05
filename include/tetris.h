@@ -35,6 +35,14 @@ int getScore();
 void initializeWindow();
 void finalizeWindow();
 void printTable(const Piece current, const char table[ROWS][COLS], const int score);
-void printGameOver(const char table[ROWS][COLS], const int score);
+void printResult(const char table[ROWS][COLS], const int score);
+
+// validation.c
+int isValidPosition(const Piece piece, char table[ROWS][COLS]);
+void spawnNewPiece(Piece *currentPtr);
+void controllCurrent(Piece *currentPtr, char (*tablePtr)[ROWS][COLS], const int action);
+
+// table.c
+void updateTable(const Piece piece, char (*tablePtr)[ROWS][COLS]);
 
 #endif
