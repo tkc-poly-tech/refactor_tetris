@@ -21,7 +21,7 @@ static void deployPieceInTable(const Piece piece, char pieceInTable[ROWS_TABLE][
 
 void printTable(const Piece current, const char table[ROWS_TABLE][COLS_TABLE], const int score)
 {
-	char pieceInTable[ROWS_TABLE][COLS_TABLE] = {0};
+	char pieceInTable[ROWS_TABLE][COLS_TABLE] = {{0}};
 	deployPieceInTable(current, pieceInTable);
 	clear();
 	for (int i = 0; i < COLS_TABLE - OFFSET_HEADER; i++)

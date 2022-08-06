@@ -7,7 +7,7 @@
 #include "score.h"
 #include "timer.h"
 
-char Table[ROWS_TABLE][COLS_TABLE] = {0};
+char Table[ROWS_TABLE][COLS_TABLE] = {{0}};
 Piece Current;
 
 static int canGameContinue()
