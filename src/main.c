@@ -8,7 +8,7 @@
 #include "control.h"
 #include "validation.h"
 
-char Table[ROWS_TABLE][COLS_TABLE] = {0};
+char Table[ROWS_TABLE][COLS_TABLE] = {{0}};
 Piece Current;
 
 static int canGameContinue()
