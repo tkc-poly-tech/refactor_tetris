@@ -13,7 +13,7 @@ const Piece pieceTemplates[] = {
 
 static int getLengthPieceTemplates()
 {
-	const int length = sizeof(pieceTemplates) / sizeof(pieceTemplates[0]);
+	const int length = sizeof(pieceTemplates) / sizeof(Piece);
 	return length;
 }
 

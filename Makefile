@@ -11,6 +11,7 @@ SRCS =	$(DIR_SRC)/main.c	\
 		$(DIR_SRC)/piece.c	\
 		$(DIR_SRC)/control.c	\
 		$(DIR_SRC)/validation.c	\
+		$(DIR_SRC)/window.c	\
 		$(DIR_SRC)/view.c	\
 		$(DIR_SRC)/table.c	\
 		

@@ -37,20 +37,20 @@ static void moveRotate(Piece *currentPtr, char (*tablePtr)[ROWS_TABLE][COLS_TABL
 	deletePiece(tmp);
 }
 
-void control(Piece *currentPtr, char (*tablePtr)[ROWS_TABLE][COLS_TABLE], const int action)
+void control(const int key, Piece *currentPtr, char (*tablePtr)[ROWS_TABLE][COLS_TABLE])
 {
-	switch (action)
+	switch (key)
 	{
-	case 's':
+	case KEY_MOVE_DOWN:
 		moveDown(currentPtr, tablePtr);
 		break;
-	case 'd':
+	case KEY_MOVE_RIGHT:
 		moveRight(currentPtr, tablePtr);
 		break;
-	case 'a':
+	case KEY_MOVE_LEFT:
 		moveLeft(currentPtr, tablePtr);
 		break;
-	case 'w':
+	case KEY_MOVE_ROTATE:
 		moveRotate(currentPtr, tablePtr);
 		break;
 	}
