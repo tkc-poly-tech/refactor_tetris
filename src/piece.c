@@ -2,7 +2,7 @@
 #include "utils.h"
 #include "random.h"
 
-const Piece pieceTemplates[7] = {
+const Piece pieceTemplates[] = {
 	{(char *[]){(char[]){0, 1, 1}, (char[]){1, 1, 0}, (char[]){0, 0, 0}}, 3, 0, 0},
 	{(char *[]){(char[]){1, 1, 0}, (char[]){0, 1, 1}, (char[]){0, 0, 0}}, 3, 0, 0},
 	{(char *[]){(char[]){0, 1, 0}, (char[]){1, 1, 1}, (char[]){0, 0, 0}}, 3, 0, 0},
@@ -11,19 +11,25 @@ const Piece pieceTemplates[7] = {
 	{(char *[]){(char[]){1, 1}, (char[]){1, 1}}, 2, 0, 0},
 	{(char *[]){(char[]){0, 0, 0, 0}, (char[]){1, 1, 1, 1}, (char[]){0, 0, 0, 0}, (char[]){0, 0, 0, 0}}, 4, 0, 0}};
 
-Piece getRandomPiece()
+static int getLengthPieceTemplates()
 {
-	return (pieceTemplates[getRandomNumber() % 7]);
+	const int length = sizeof(pieceTemplates) / sizeof(Piece);
+	return length;
 }
 
-static void freeArray(int index, char **array)
+Piece getPieceTemplate(const int num)
+{
+	return (pieceTemplates[num % getLengthPieceTemplates()]);
+}
+
+static void freeArray(const int index, char **array)
 {
 	for (int i = index; i >= 0; i--)
 		free(array[i]);
 	free(array);
 }
 
-Piece copyPiece(Piece piece)
+Piece copyPiece(const Piece piece)
 {
 	Piece copied = piece;
 	char **array = piece.array;
@@ -63,7 +69,7 @@ void rotatePiece(Piece piece) // rotate 90 degrees clockwise
 
 void spawnNewPiece(Piece *piecePtr)
 {
-	Piece new = copyPiece(getRandomPiece());
+	Piece new = copyPiece(getPieceTemplate(getRandomNumber()));
 	new.col = rand() % (COLS_TABLE - new.width + 1);
 	new.row = 0;
 	deletePiece(*piecePtr);

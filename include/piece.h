@@ -9,8 +9,8 @@ typedef struct
 	int width, row, col;
 } Piece;
 
-Piece getRandomPiece();
-Piece copyPiece(Piece piece);
+Piece getPieceTemplate(const int num);
+Piece copyPiece(const Piece piece);
 void deletePiece(Piece piece);
 void rotatePiece(Piece piece); // rotates clockwise
 void spawnNewPiece(Piece *piecePtr);
