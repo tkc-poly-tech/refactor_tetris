@@ -11,7 +11,7 @@
 char Table[ROWS_TABLE][COLS_TABLE] = {{0}};
 Piece Current;
 
-static int canGameContinue()
+static bool canGameContinue()
 {
 	return isValidPosition(Current, Table);
 }

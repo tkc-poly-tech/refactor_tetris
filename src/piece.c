@@ -70,7 +70,7 @@ void rotatePiece(Piece piece) // rotate 90 degrees clockwise
 void spawnNewPiece(Piece *piecePtr)
 {
 	Piece new = copyPiece(getPieceTemplate(getRandomNumber()));
-	new.col = rand() % (COLS_TABLE - new.width + 1);
+	new.col = getRandomNumber() % (COLS_TABLE - new.width + 1);
 	new.row = 0;
 	deletePiece(*piecePtr);
 	*piecePtr = new;

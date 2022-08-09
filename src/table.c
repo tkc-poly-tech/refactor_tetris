@@ -1,13 +1,14 @@
 #include "table.h"
+#include "utils.h"
 #include "score.h"
 #include "timer.h"
 
-static int isLineFilled(const int row, const char table[ROWS_TABLE][COLS_TABLE])
+static bool isLineFilled(const int row, const char table[ROWS_TABLE][COLS_TABLE])
 {
 	for (int i = 0; i < COLS_TABLE; i++)
 		if (table[row][i] == 0)
-			return FALSE;
-	return TRUE;
+			return false;
+	return true;
 }
 
 static void desapearLine(const int row, char (*tablePtr)[ROWS_TABLE][COLS_TABLE])
