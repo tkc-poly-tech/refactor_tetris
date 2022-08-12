@@ -11,7 +11,7 @@ static bool isLineFilled(const int row, const char table[ROWS_TABLE][COLS_TABLE]
 	return true;
 }
 
-static void desapearLine(const int row, char (*tablePtr)[ROWS_TABLE][COLS_TABLE])
+static void disappearLine(const int row, char (*tablePtr)[ROWS_TABLE][COLS_TABLE])
 {
 	for (int i = row; i >= 1; i--)
 		for (int j = 0; j < COLS_TABLE; j++)
@@ -20,14 +20,14 @@ static void desapearLine(const int row, char (*tablePtr)[ROWS_TABLE][COLS_TABLE]
 		(*tablePtr)[0][j] = 0;
 }
 
-static void desapearFilledLines(char (*tablePtr)[ROWS_TABLE][COLS_TABLE])
+static void disappearFilledLines(char (*tablePtr)[ROWS_TABLE][COLS_TABLE])
 {
 	for (int i = 0; i < ROWS_TABLE; i++)
 	{
 		if (isLineFilled(i, *tablePtr))
 		{
 			addScore();
-			desapearLine(i, tablePtr);
+			disappearLine(i, tablePtr);
 			reduceInterval();
 		}
 	}
@@ -44,5 +44,5 @@ static void fixPieceToTable(const Piece piece, char (*tablePtr)[ROWS_TABLE][COLS
 void updateTable(const Piece piece, char (*tablePtr)[ROWS_TABLE][COLS_TABLE])
 {
 	fixPieceToTable(piece, tablePtr);
-	desapearFilledLines(tablePtr);
+	disappearFilledLines(tablePtr);
 }
